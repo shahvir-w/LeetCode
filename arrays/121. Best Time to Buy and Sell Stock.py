@@ -1,20 +1,28 @@
-class Solution(object):
-    class Solution(object):
-    def maxProfit(self, prices):
-        """
-        :type prices: List[int]
-        :rtype: int
-        """
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        # intuitive solution
         maxProfit = 0
-        currentLowestStock = 0
+        currentLowest = prices[0]
 
-        for i in range(len(prices)):
-            if prices[i] <= prices[currentLowestStock]:
-                currentLowestStock = i
-            profit = prices[i] - prices[currentLowestStock]
+        for price in prices:
+            if price <= currentLowest:
+                currentLowest = price
 
-            if profit > maxProfit:
-                maxProfit = profit
-
-        return maxProfit
+            potentialProfit = price - currentLowest
+            if p/otentialProfit >= maxProfit:
+                maxProfit = potentialProfit
         
+        return maxProfit
+
+        #sliding window
+        l, r = 0, 1
+        maxProfit = 0
+
+        while r < len(prices):
+            if prices[r] > prices[l]:
+                profit = prices[r] - prices[l]
+                maxProfit = max(maxProfit, profit)
+            else:
+                l = r
+            r += 1
+        return maxProfit
